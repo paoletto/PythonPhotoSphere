@@ -24,7 +24,6 @@ Second transform
 """
 
 import numpy 
-import numpy.oldnumeric as Numeric
 import copy
 from math import sqrt
 
@@ -70,7 +69,7 @@ class ArcBallT:
         TempPt [Y] = 1.0 - (NewPt [Y] * self.m_AdjustHeight)
         # //Compute the square of the length of the vector to the point from the center
         
-        length = Numeric.sum (Numeric.dot (TempPt, TempPt))
+        length = numpy.sum (numpy.dot (TempPt, TempPt))
         # //If the point is mapped outside of the sphere... (length > radius squared)
         if (length > 1.0):
             # //Compute a normalizing factor (radius / sqrt(length))
@@ -140,26 +139,26 @@ class ArcBallT:
 
 
 def Matrix4fT ():
-    return Numeric.identity (4, 'f')
+    return numpy.identity (4, 'f')
 
 def Matrix3fT ():
-    return Numeric.identity (3, 'f')
+    return numpy.identity (3, 'f')
 
 def Quat4fT ():
-    return Numeric.zeros (4, 'f')
+    return numpy.zeros (4, 'f')
 
 def Vector3fT ():
-    return Numeric.zeros (3, 'f')
+    return numpy.zeros (3, 'f')
 
 def Point2fT (x = 0.0, y = 0.0):
-    pt = Numeric.zeros (2, 'f')
+    pt = numpy.zeros (2, 'f')
     pt [0] = x
     pt [1] = y
     return pt
 
 def Vector3fDot(u, v):
     # Dot product of two 3f vectors
-    dotprod = Numeric.dot (u,v)
+    dotprod = numpy.dot (u,v)
     return dotprod
 
 def Vector3fCross(u, v):
@@ -167,22 +166,22 @@ def Vector3fCross(u, v):
     X = 0
     Y = 1
     Z = 2
-    cross = Numeric.zeros (3, 'f')
+    cross = numpy.zeros (3, 'f')
     cross [X] = (u[Y] * v[Z]) - (u[Z] * v[Y])
     cross [Y] = (u[Z] * v[X]) - (u[X] * v[Z])
     cross [Z] = (u[X] * v[Y]) - (u[Y] * v[X])
     return cross
 
 def Vector3fLength (u):
-    mag_squared = Numeric.sum(Numeric.dot (u,u))
+    mag_squared = numpy.sum(numpy.dot (u,u))
     mag = sqrt (mag_squared)
     return mag
     
 def Matrix3fSetIdentity ():
-    return Numeric.identity (3, 'f')
+    return numpy.identity (3, 'f')
 
 def Matrix3fMulMatrix3f (matrix_a, matrix_b):
-    return Numeric.matrixmultiply (matrix_a, matrix_b)
+    return numpy.dot (matrix_a, matrix_b)
 
 
 
@@ -229,7 +228,7 @@ def Matrix3fSetRotationFromQuat4f (q1):
     W = 3
 
     NewObj = Matrix3fT ()
-    n = Numeric.sum (Numeric.dot (q1, q1))
+    n = numpy.sum (numpy.dot (q1, q1))
     s = 0.0
     if (n > 0.0):
         s = 2.0 / n
